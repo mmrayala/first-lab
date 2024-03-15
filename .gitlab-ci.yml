@@ -23,10 +23,12 @@ stages:          # List of stages for jobs, and their order of execution
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
-  image: dcycle/acquia-cli:1.0.2024-03-13-13-25-31-UTC
+  image: megha171/acquiacli:v1
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
+    - ls -l /
+    - which acli
     - acli --version
 
 
