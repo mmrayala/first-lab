@@ -28,7 +28,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Compiling the code..."
     - echo "Compile complete."
     - ls -l /
-    - Get-Command acli
+    - if $CI_RUNNER_OS == "Windows"; then where acli; else which acli; fi
     - acli --version
 
 
