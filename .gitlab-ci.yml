@@ -23,11 +23,11 @@ stages:          # List of stages for jobs, and their order of execution
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
-  image: php:8-alpine
+  image: megha171/acquiacli:v1
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
-    - php --version
+    - acli --version
 
 
 unit-test-job:   # This job runs in the test stage.
