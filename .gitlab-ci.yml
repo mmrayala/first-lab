@@ -27,6 +27,7 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - echo "Compiling the code..."
     - echo "Compile complete."
+    - echo "Building version $VERSION ..."
     - ls -l /
     #- acli --version
 
@@ -36,6 +37,11 @@ manual-job1:
     - echo "Manual job starts running.."
     - echo "Manual job ends"
   when: manual
+job1:
+  stage: build
+  script:
+  - chmod +x scripts/job1.sh
+  - ./scripts/job1.sh
 
 job2:
   stage: build
