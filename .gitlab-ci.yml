@@ -54,7 +54,7 @@ job4:
 job5:
   stage: build
   rules:
-    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_ACCEPTED == "true"'
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "merge_request_event"'
   script:
     - echo "job 5 is running because pull reqeuest merged"
 
