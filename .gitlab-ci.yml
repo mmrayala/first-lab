@@ -55,7 +55,8 @@ job5:
   stage: build
   rules:
     - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_ACCEPTED == "true"'
-    - echo "job 5 is executing becasue pull request merged"
+  script:
+    - echo "job 5 is running because pull reqeuest merged"
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
