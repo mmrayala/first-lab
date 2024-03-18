@@ -42,7 +42,7 @@ job2:
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
   script:
-    - echo "job2 is running only code pushed from dev branch"
+    - echo "job2 is running only code pushed from dev branch."
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
