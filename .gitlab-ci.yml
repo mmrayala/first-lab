@@ -37,6 +37,11 @@ manual-job1:
     - echo "Manual job starts running.."
     - echo "Manual job ends"
   when: manual
+job1:
+  stage: build
+  script:
+  - chmod +x scripts/job1.sh
+  - ./scripts/job1.sh
 
 job2:
   stage: build
