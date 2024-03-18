@@ -44,6 +44,19 @@ job2:
   script:
     - echo "job2 is running only code pushed from dev branch."
 
+job4:
+  stage: build
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  script:
+    - echo "job 4 is running because pull reqeuest created"
+
+job5:
+  stage: build
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_ACCEPTED == "true"'
+    - echo "job 5 is executing becasue pull request merged"
+
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
