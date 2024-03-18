@@ -54,7 +54,10 @@ job4:
 job5:
   stage: build
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if : '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /Merge branch.*/
+      when: on_success    
   script:
     - echo "job 5 is running because pull reqeuest merged"
 
