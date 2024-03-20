@@ -2,10 +2,10 @@ job:on-schedule:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
   script:
-    - make world
+    - echo "hello world schedule"
 
 job:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
   script:
-    - make build
+    - echo "push job"
