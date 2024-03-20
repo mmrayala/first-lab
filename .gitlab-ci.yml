@@ -38,12 +38,13 @@ manual-job1:
     - echo "Manual job ends"
   when: manual
 schedule_job:
-  script:
-    - echo "This job runs every day at 12:30 PM"
-  only:
-    - schedules
-  variables:
-    CRON_STRATEGY: "*/5 * * * *"
+  script: echo "Hello, Rules!"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - when: on_success  
 
 job1:
   stage: build
