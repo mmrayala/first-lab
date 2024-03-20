@@ -70,7 +70,7 @@ job2:
     - echo "job2 is running only code pushed from dev branch."
   rules:
     - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
-      when: never
+      
 
 job4:
   stage: build
