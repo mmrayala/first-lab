@@ -37,6 +37,14 @@ manual-job1:
     - echo "Manual job starts running.."
     - echo "Manual job ends"
   when: manual
+schedule_job:
+  script:
+    - echo "This job runs every day at 12:30 PM"
+  only:
+    - schedules
+  variables:
+    CRON_STRATEGY: "*/5 * * * *"
+
 job1:
   stage: build
   script:
