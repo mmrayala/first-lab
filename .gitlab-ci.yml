@@ -31,6 +31,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - ls -l /
   rules:
     - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
+      when: never
 
     #- acli --version
 
@@ -42,15 +43,15 @@ manual-job1:
   when: manual
   rules:
     - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
+      when: never
 
 scheduled_job:
   script:
     - echo "This job runs on a schedule"
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-  variables:
-    CRON_STRATEGY: "*/5 * * * *"
-    SCHEDULED_JOB_ENABLED: "true"  
+    - if: '$CI_PIPELINE_SOURCE == "schedule" || $SCHEDULED_JOB_ENABLED == "true"'
+  
+      
 
 job1:
   stage: build
