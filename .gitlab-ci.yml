@@ -29,8 +29,9 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "Compile complete."
     - echo "Building version $VERSION ..."
     - ls -l /
-    rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  rules:
+    - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
+
     #- acli --version
 
 manual-job1:
@@ -40,7 +41,7 @@ manual-job1:
     - echo "Manual job ends"
   when: manual
   rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+    - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
 
 scheduled_job:
   script:
@@ -49,7 +50,7 @@ scheduled_job:
     - schedules
   variables:
     CRON_STRATEGY: "*/5 * * * *"
-       
+    SCHEDULED_JOB_ENABLED: "true"  
 
 job1:
   stage: build
@@ -57,7 +58,8 @@ job1:
   - chmod +x scripts/job1.sh
   - ./scripts/job1.sh
   rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+    - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
+
 
 job2:
   stage: build
@@ -66,7 +68,8 @@ job2:
   script:
     - echo "job2 is running only code pushed from dev branch."
   rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+    - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
+
 
 job4:
   stage: build
@@ -75,7 +78,7 @@ job4:
   script:
     - echo "job 4 is running because pull reqeuest created"
   rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+    - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
 job5:
   stage: build
   rules:
@@ -86,7 +89,7 @@ job5:
   script:
     - echo "job 5 is running because pull reqeuest merged"
   rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+    - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
 job3:
   stage: build
   rules:
@@ -94,7 +97,7 @@ job3:
   script:
     - echo "job3 is running only code pushed from main branch"
   rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+    - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
@@ -103,7 +106,7 @@ unit-test-job:   # This job runs in the test stage.
     - sleep 60
     - echo "Code coverage is 90%"
   rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+    - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
 
 lint-test-job:   # This job also runs in the test stage.
   stage: test    # It can run at the same time as unit-test-job (in parallel).
@@ -113,8 +116,7 @@ lint-test-job:   # This job also runs in the test stage.
     - echo "No lint issues found."
 
   rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
-
+    - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   environment: production
@@ -122,5 +124,5 @@ deploy-job:      # This job runs in the deploy stage.
     - echo "Deploying application..."
     - echo "Application successfully deployed into production env."
   rules:
-    - if: '$CI_PIPELINE_SOURCE != "schedule"'
+    - if: '$CI_PIPELINE_SOURCE != "schedule" || $SCHEDULED_JOB_ENABLED != "true"'
     
