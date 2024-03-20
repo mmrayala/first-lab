@@ -4,6 +4,16 @@ job:on-schedule:
   script:
     - echo "hello world schedule"
 
+
+scheduled_job:on-schedule:
+  script:
+    - echo "This job is scheduled to run at a specific time"
+  only:
+    - schedules
+  variables:
+    CRON_STRATEGY: "* * * * *"
+    SCHEDULED_JOB_ENABLED: "true"
+
 job:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
