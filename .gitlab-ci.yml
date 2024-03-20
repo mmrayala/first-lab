@@ -37,10 +37,12 @@ manual-job1:
     - echo "Manual job starts running.."
     - echo "Manual job ends"
   when: manual
-schedule_job:
-  script: echo "Hello, Rules!"
+job:on-schedule:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+  script:
+    - make world
        
 
 job1:
