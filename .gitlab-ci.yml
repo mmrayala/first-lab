@@ -47,11 +47,12 @@ manual-job1:
 
 scheduled_job:
   script:
-    - echo "This job runs on a schedule"
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" || $SCHEDULED_JOB_ENABLED == "true"'
-  
-      
+    - echo "This job is scheduled to run at a specific time"
+  only:
+    - schedules
+  variables:
+    CRON_STRATEGY: "*/5 * * * *"
+    SCHEDULED_JOB_ENABLED: "true"
 
 job1:
   stage: build
