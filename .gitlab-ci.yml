@@ -1,8 +1,17 @@
-job:on-schedule:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule" 
+#job:on-schedule:
+  #rules:
+  #  - if: $CI_PIPELINE_SOURCE == "schedule" 
+  #script:
+  #  - echo "schedule job"
+
+scheduled_job1:on-schedule:
   script:
-    - echo "schedule job"
+    - echo "This job is scheduled to run at a specific time"
+  only:
+    - schedules
+  variables:
+    CRON_STRATEGY: "*/10 * * * *"
+    SCHEDULED_JOB1_ENABLED: "true"
 
 scheduled_job2:on-schedule:
   script:
@@ -10,8 +19,8 @@ scheduled_job2:on-schedule:
   only:
     - schedules
   variables:
-    CRON_STRATEGY: "*/10 * * * *"
-    SCHEDULED_JOB_ENABLED: "true"
+    CRON_STRATEGY: "*/5 * * * *"
+    SCHEDULED_JOB2_ENABLED: "true"
 
 job:
   rules:
