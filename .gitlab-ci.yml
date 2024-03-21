@@ -1,29 +1,14 @@
-job:on-schedule:
+scheduled_job_5mins:
+  script:
+    - echo "This is scheduled job running every 5 minutes"
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      variables:
-        SCHEDULED_JOB_ENABLED: "true"     
-  script:
-    - echo "hello schedule"
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SCHEDULE_CRON == "*/5 * * * *"' 
 
-scheduled_job1:on-schedule:
+scheduled_job_10mins:
   script:
-    - echo "This job is scheduled to run at a specific time"
-  only:
-    - schedules
-  variables:
-    CRON_STRATEGY: "*/10 * * * *"
-    SCHEDULED_JOB1_ENABLED: "true"
-
-scheduled_job2:on-schedule:
-  script:
-    - echo "This job is scheduled to run at a specific time"
-  only:
-    - schedules
-  variables:
-    CRON_STRATEGY: "*/5 * * * *"
-    SCHEDULED_JOB2_ENABLED: "true"
-
+    - echo "This is scheduled job running every 10 minutes"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SCHEDULE_CRON == "*/10 * * * *"'
 job:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
