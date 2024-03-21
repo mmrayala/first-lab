@@ -11,7 +11,7 @@ scheduled_job:on-schedule:
   only:
     - schedules
   variables:
-    CRON_STRATEGY: "* * * * *"
+    CRON_STRATEGY: "*/5 * * * *"
     SCHEDULED_JOB_ENABLED: "true"
 
 job:
