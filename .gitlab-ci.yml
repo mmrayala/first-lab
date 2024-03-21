@@ -1,8 +1,10 @@
-#job:on-schedule:
-  #rules:
-  #  - if: $CI_PIPELINE_SOURCE == "schedule" 
-  #script:
-  #  - echo "schedule job"
+job:on-schedule:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      variables:
+        SCHEDULED_JOB_ENABLED: "true"     
+  script:
+    - echo "hello schedule"
 
 scheduled_job1:on-schedule:
   script:
