@@ -2,13 +2,13 @@ scheduled_job_5mins:
   script:
     - echo "This is scheduled job running every 5 minutes"
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SCHEDULE_CRON == "5 * * * *"' 
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SCHEDULE_CRON_1 == "true"' 
 
 scheduled_job_10mins:
   script:
     - echo "This is scheduled job running every 10 minutes"
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SCHEDULE_CRON == "10 * * * *"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SCHEDULE_CRON_2 == "true"'
 job:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
